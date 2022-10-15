@@ -1,12 +1,13 @@
 # Ćwiczenie 3  Łączenie z bazą danych i instrukcja select
 
-Celem ćwiczenia jest połączenie się z bazą danych przy użyciu bibliotek pythona i wykonanie zapytań select na przykładowej bazie danych. 
+Celem ćwiczenia jest połączenie się z bazą danych przy użyciu bibliotek pythona i wykonanie zapytań select na przykładowej bazie danych.
 
 ## Łączenie z bazą danych przy pomocy skryptu Python
 
-Istnieje wiele bibliotek do obsługi połączeń Pythona z bazami danych. Na tych zajęciach będziemy korzystać z biblioteki sqlAlchemy oraz psycopg2. 
+Istnieje wiele bibliotek do obsługi połączeń Pythona z bazami danych. Na tych zajęciach będziemy korzystać z biblioteki sqlAlchemy oraz psycopg2.
 
 ### instalacja niezbędnych pakietów
+
 ```
 
 pip install sqlalchemy psycopg2 pandas
@@ -14,6 +15,7 @@ pip install sqlalchemy psycopg2 pandas
 ```
 
 ### Łączenie się za pomocą sqlAlchemy
+
 ```python
 
 from sqlalchemy import create_engine
@@ -31,6 +33,7 @@ Gdzie *db_string* formatowany jest w następujący sposób:
 nazwa_silnika://użytkownik:hasło@adres_serwera:port/nazwa_bazy
 
 Zapytanie do bazy danych wraz z przeglądnięciem wyników można wykonać używając skryptu:
+
 ```python
 
 result_set = db.execute("SELECT * FROM city")  
@@ -38,7 +41,9 @@ for r in result_set:
     print(r)
 
 ```
+
 Fragment wyniku:
+
 ```
 
 (1, 'A Corua (La Corua)', 87, datetime.datetime(2006, 2, 15, 9, 45, 25))
@@ -47,8 +52,11 @@ Fragment wyniku:
 ...
 
 ```
+
 Stosując tą metodę wynik zapytania do zmiennej *result_set* jest zwracany jako obiekt typu [ResultProxy](https://docs.sqlalchemy.org/en/13/core/connections.html#sqlalchemy.engine.ResultProxy).
+
 ### Łączenie się za pomocą psycopg2 i pandas
+
 ```python
 import psycopg2 as pg
 import pandas as pd
@@ -57,6 +65,7 @@ connection = pg.connect(host='localhost', port=5432, dbname='test', user='postgr
 ```
 
 Wykonanie zapytania:
+
 ```python
 df = pd.read_sql('select * from city',con=connection)
 print(df)
@@ -79,15 +88,20 @@ Dodatkowo możliwe jest użycie pandasa i sqlAlchemy, przykład użycia tego mec
 
 ## Baza ćwiczeniowa
 
-W części poświęconej bazom danych na zajęciach będziemy używać bazy z oficjalnego tutorialu PostgeSQL dostępnej [tutaj](https://www.postgresqltutorial.com/postgresql-sample-database/).
+W części poświęconej bazom danych na zajęciach będziemy używać bazy z oficjalnego tutorialu PostgeSQL dostępnej [tuSELECT
+first_name,
+last_name,
+email
+FROM
+customer;taj](https://www.postgresqltutorial.com/postgresql-sample-database/).
 
 ## Dane do połączenia do bazy zdalnej
-	- host: pgsql-196447.vipserv.org
-	- port: 5432
-	- login: wbauer_adb
-	- hasło: adb2020
-	- nazwa_bazy: wbauer_adb
 
+- host: pgsql-196447.vipserv.org
+- port: 5432
+- login: wbauer_adb
+- hasło: adb2020
+- nazwa_bazy: wbauer_adb
 ## Polecenie SELECT
 
 Jednym z najczęstszych zadań podczas pracy z bazami danych jest wyszukiwanie danych  za pomocą instrukcji SELECT. Instrukcja SELECT jest jedną z najbardziej złożonych instrukcji w PostgreSQL. Zawiera wiele klauzul umożliwiających utworzenie elastycznych zapytań.
@@ -112,7 +126,6 @@ SELECT
 FROM
    table_name;
 ```
-
 #### Przykład użycia
 
 Wypisanie wybranych kolumny z zadanej tabeli:
@@ -125,7 +138,6 @@ SELECT
 FROM
    customer;
 ```
-
 Wypisanie wszystkich kolumny z zadanej tabeli:
 
 ```sql
@@ -134,7 +146,6 @@ SELECT
 FROM
    customer;
 ```
-
 ### Klauzula ORDER BY
 
 Klauzula ORDER BY pozwala sortować wiersze zwrócone z instrukcji SELECT w kolejność rosnąca lub malejąca na podstawie określonych kryteriów i kolumny.
@@ -151,7 +162,6 @@ ORDER BY
    column_1 ASC,
    column_2 DESC;
 ```
-
 W przypadku podania więcej niż jednej kolumny w klauzuli ORDER BY zbiór zostanie posortowany względem kolejnych kolumny. Znacznik ASC  odpowiada za sortowanie rosnące i jest domyślną wartością. DESC sortuje zbiór malejąco.
 
 ### Klauzula DISTINCT
@@ -166,7 +176,6 @@ SELECT
 FROM
  table_name;
 ```
-
 #### Przykłady użycia:
 
 Dla więcej niż jednej kolumny:
@@ -178,7 +187,6 @@ SELECT
 FROM
  tbl_name;
 ```
-
 Dla dokładnie jednej kolumny i pokazanie pozostałych:
 
 ```sql
@@ -189,7 +197,6 @@ SELECT
 FROM
  tbl_name
 ```
-
 ### Klauzula WHERE
 
 Klauzula WHERE pojawia się zaraz po klauzuli FROM w instrukcji SELECT. Klauzula WHERE jest znacznikiem wykorzystania warunków filtrowania wierszy zwróconych z instrukcji SELECT.
@@ -208,21 +215,22 @@ FROM table_name
 WHERE condition;
 ```
 
-|Operator|Opis|
-|-|-|
-|=|Równy|
-|>|większy niż|
-|<|mniejszy niż|
-|>=| większy bądź równy|
-|<=| mniejszy bądź równy|
-|<> lub !=| różny|
-|AND| operator AND|
-|OR|operator OR|
+| Operator  | Opis                   |
+| ----------- | ------------------------ |
+| =         | Równy                 |
+| >         | większy niż          |
+| <         | mniejszy niż          |
+| >=        | większy bądź równy |
+| <=        | mniejszy bądź równy |
+| <> lub != | różny                |
+| AND       | operator AND           |
+| OR        | operator OR            |
 
 ### Klauzula OFFSET
 
 LIMIT jest opcjonalną klauzulą instrukcji SELECT, która pomija n pierwszych wierszy.
-####  Składnia ogólna:
+
+#### Składnia ogólna:
 
 ```sql
 SELECT
@@ -231,12 +239,11 @@ FROM
    table
 OFFSET n;
 ```
-
 ### Klauzula LIMIT
 
 LIMIT jest opcjonalną klauzulą instrukcji SELECT, która zwraca n pierwszych wierszy z zapytania.
 
-####  Składnia ogólna:
+#### Składnia ogólna:
 
 ```sql
 SELECT
@@ -245,7 +252,6 @@ FROM
    table_name
 LIMIT n;
 ```
-
 Jeśli chcemy pominąć liczbę wierszy przed zwróceniem n wierszy, użyj klauzuli OFFSET umieszczonej po klauzuli LIMIT jak w następującej instrukcji:
 
 ```sql
@@ -255,16 +261,14 @@ FROM
    table
 LIMIT n OFFSET m;
 ```
+### Klauzula FETCH
 
-### Klauzula FETCH 
-
-Klauzula FETCH umożliwia pobrania części wierszy zwróconych przez zapytanie. 
+Klauzula FETCH umożliwia pobrania części wierszy zwróconych przez zapytanie.
 
 ```sql
 OFFSET start { ROW | ROWS }
 FETCH { FIRST | NEXT } [ row_count ] { ROW | ROWS } ONLY
 ```
-
 #### Przykłady użycia:
 
 ```sql
@@ -287,7 +291,6 @@ ORDER BY
     title 
 FETCH FIRST 5 ROW ONLY;
 ```
-
 ### Klauzula IN
 
 Umożliwia sprawdzenie czy dana kolumna zawiera wartość ze zbioru: value IN (value1,value2,...), lub w wersji przeciwnej czy nie należy do zbioru: value NOT IN (value1,value2,...),
@@ -306,7 +309,6 @@ WHERE
 ORDER BY
    return_date DESC;
 ```
-
 ### Klauzula BETWEEN
 
 Sprawdza czy wartość znajduje się w zadanym przedziale: value BETWEEN low AND high; lub przeciwnie value NOT BETWEEN low AND high
@@ -324,8 +326,8 @@ WHERE
    amount BETWEEN 8
 AND 9;
 ```
-
 ## Ćwiczenie:
+
 Wykonaj zapytania za pomocą skryptów pythona:
 
 1. Ile kategorii filmów mamy w wypożyczalni?

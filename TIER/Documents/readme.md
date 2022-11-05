@@ -13,3 +13,6 @@
 * ### Original Data
 
   * tb.csv   (Original and unmodified data)
+  * ### Metadata
+
+    * MetadataGuide.txt   (Metadata explanation)

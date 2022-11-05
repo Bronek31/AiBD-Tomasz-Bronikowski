@@ -1,0 +1,3 @@
+tb_tidy.csv
+
+Variables: iso2, year, sex, age, cases

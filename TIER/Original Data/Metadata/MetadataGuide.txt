@@ -1,0 +1,4 @@
+Data in tb.csv file contains information about tuberculosis in a group of patients
+Path of file: /OriginalData/tb.csv
+
+Variables: iso2, year, new_sp, new_sp_mu, new_sp_fu, new_sp_m04 ... new_sp_m65, new_sp_f04 ... new_sp_f 65  

@@ -1,0 +1,4 @@
+Data in 1_KUJAWSKO-POMORSKIE.csv file contains information about rating and sales of vacuum cleaners and client data
+Path of file: /OriginalData/1_KUJAWSKO-POMORSKIE.csv
+
+Variables: Dni od zakupu, Marka, Wiek kupującego, Płeć kupującego, Ocena  

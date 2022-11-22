@@ -1,0 +1,3 @@
+1_KUJAWSKO-POMORSKIE_tidy.csv
+
+Variables: Dni od zakupu, Marka, Wiek kupującego, Płeć kupującego, Ocena  
